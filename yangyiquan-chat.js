@@ -26,6 +26,394 @@
   const MODEL     = 'claude-sonnet-4-20250514';
   const MAX_TOKENS = 900;
 
+// ═══════════════════════════════════════════════════════════════════════════
+// BASE DE RESPOSTAS YANGYIQUAN FA — v4.0
+// Extraída directamente dos livros do Instrutor Pedro P. da Fonseca
+// Cobre: iniciantes, praticantes, especialistas em Kung Fu
+// ═══════════════════════════════════════════════════════════════════════════
+
+const SIM_DB = [
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 1 — IDENTIDADE DO SISTEMA (iniciantes + curiosos)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['o que é','what is','qué es','yangyiquan','que es','sistema','estilo','arte','kung fu','wushu','marcial','para que','para quê','beginners','principiante','iniciante'],
+r:`O Yangyiquan Fa — 阳意拳法 — é o Punho da Luz da Intenção. Não é um estilo entre muitos: é um cosmos marcial completo, desenvolvido pelo Instrutor Pedro P. da Fonseca a partir da síntese da tradição marcial chinesa com a perspectiva cultural portuguesa.
+
+O nome revela a essência: 阳 (Yáng) — Luz, princípio luminoso e activo; 意 (Yì) — Intenção, a mente que precede cada movimento; 拳 (Quán) — Sistema de combate estruturado. A supremacia não reside na força muscular nem na velocidade bruta — reside na clareza e pureza da intenção que precede, acompanha e transcende cada acção.
+
+O sistema é completo: três pilares internos (Yi, Qi, Dan Tian), nove poderes do Nei Gong, seis técnicas do Dragão e o Dao Zhiliao como medicina marcial. A academia em Granada abre em Julho — <a href="https://wa.me/34674471678?text=Hola%21+Quiero+informaci%C3%B3n+sobre+el+Yangyiquan+Fa." target="_blank" style="color:#FFD700">contacta aqui</a>.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 2 — YI: A INTENÇÃO (iniciantes + praticantes)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['yi','intenção','intención','intention','mental','mente','mind','pensamiento','pensamento','consciência','consciencia','mente marcial','iluminação','iluminacion'],
+r:`O Yi (意) é o princípio organizador supremo do Yangyiquan. Existe antes do movimento, antes do golpe, antes do combate. O sistema postula que sem Yi não existe Wushu verdadeiro.
+
+Como o Instrutor Pedro P. da Fonseca escreve nos seus livros: "A maior guerra que venceste é aquela que não começaste." O Yi opera em três dimensões: a guerra exterior (o combate físico), a guerra interior (o combate contra os próprios medos e limitações) e a guerra cósmica (o confronto entre luz e escuridão). O guerreiro que domina o seu Yi domina as três em simultâneo.
+
+Na prática: a intenção precede o movimento em fracções de segundo. O adversário lê o corpo — mas o corpo é precedido pela mente. Quem domina o Yi torna-se, literalmente, imprevisível.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 3 — QI: A ENERGIA (praticantes + curiosos)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['qi','chi','energia','energy','energía','respiração','respiracion','breath','respirar','breathing','prana','vital','força vital','ki'],
+r:`O Qi (气) transporta a informação do universo. O ar que respiramos carrega o pensamento e a intenção de todo o ser vivo — quem aprende a ler o Qi, lê o adversário antes de este atacar.
+
+O ensinamento central do Instrutor é directo: "Não respiras? O medo dominar-te-á. Mas se inspiras perante o medo, ele já não te domina." A respiração não é apenas fisiológica — é o veículo do poder marcial.
+
+O Qi no Yangyiquan actua em três níveis: como energia de combate (Fajin, a emissão explosiva de força), como informação táctica (ler o estado energético do adversário via Shén Shí) e como medicina (o Dao Zhiliao usa o Qi para curar tecidos e restaurar equilíbrio). Trabalhar o Qi é o que diferencia um atleta de um guerreiro.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 4 — DAN TIAN e FAJIN (praticantes intermédios + avançados)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['dan tian','dantian','fajin','emissão','emision','força','power','centro','hara','koshi','rotação','rotacion','quadril','cadera','hip'],
+r:`O Dan Tian (丹田) — o Campo do Elixir — é a origem de todo o poder real no Yangyiquan. O sistema distingue três: o Xia Dantian (baixo ventre, origem do Fajin físico), o Zhong Dantian (peito, associado às emoções e à respiração) e o Shang Dantian (terceiro olho, associado ao Shen — o Espírito).
+
+O Fajin nasce no Xia Dantian. A cadeia cinética completa: terra → pés → joelhos → anca → coluna → ombro → cotovelo → punho. O Long Tian Quan (Soco do Dragão Celestial) é exemplo desta cadeia na vertical — "é um soco potentíssimo se feito com Fajin, onde o mesmo começa desde os pés e percorre o corpo até ao punho."
+
+Sem Dan Tian activado, as técnicas são apenas ginástica. Com Dan Tian, qualquer técnica torna-se uma arma real.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 5 — NEI GONG GERAL (praticantes + especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['nei gong','neigong','qigong','qi gong','gong','poderes','powers','interno','internal','poderes internos','9 poderes','nove poderes','espiritual','energético'],
+r:`O Nei Gong (內功) do Yangyiquan estrutura-se em 9 Poderes Internos — articulados e nomeados pelo Instrutor Pedro P. da Fonseca — constituindo um sistema psicológico-espiritual comparável aos grandes sistemas de Nei Gong da tradição clássica chinesa.
+
+4 Poderes Extremos (Sì Jí Fǎ):
+I. Yǐ Jīng (应) — O Já Está: visão omnisciente, 7 Chaves do domínio da realidade
+II. Tiān (天) — O Céu: alinhamento com as leis universais, intuição marcial de alta precisão
+III. Dì Cí (地磁) — A Terra-Íman: enraizamento e base do Fajin
+IV. Dì Yù (地狱) — O Submundo: transformação das sombras em poder marcial
+
+5 Poderes Intermédios (Wǔ Zhōng Fǎ):
+V. Shén Shí (神识) — O Coração do Outro
+VI. Chuāng Zào (创造) — A Criação
+VII. Zhǎn (斩) — O Corte
+VIII. Bǎo (宝) — O Tesouro Oculto
+IX. Zhì (至) — O Imortal
+
+Cada poder amplifica os restantes. Não são técnicas — são estados de ser.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 6 — YI JING: O JÁ ESTÁ (avançados + filosóficos)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['yi jing','yijing','já está','ya está','visão','vision','omnisciente','omniscient','chaves','claves','7 chaves','domínio da realidade','poder extremo','sì jí'],
+r:`O Yǐ Jīng (应) — O Já Está — é o primeiro e supremo Poder Extremo. Representa o domínio da verdade final: imutável, eterna, anterior ao combate.
+
+As 7 Chaves do Yǐ Jīng, conforme o Instrutor escreve no Vol. I:
+1. Visualiza — a imaginação abre a realidade
+2. Entende e medita — na fronteira entre Loucura e Sabedoria
+3. Fala, liberta-te e domina
+4. Semeia com a tua intenção — que a tua palavra perfure o tempo
+5. Recorda: o Chefe em ti chama-te
+6. Domina sobre tudo — segundo o teu nível espiritual
+7. Queres mais? Sê a própria Fonte
+
+"O que acontece é como um dragão que vive no abismo do mar: escondido, mas sempre presente." O praticante que cultiva o Yǐ Jīng percebe o combate antes de este existir.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 7 — SHEN SHI: O CORAÇÃO DO OUTRO (avançados)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['shen shi','shén shí','coração outro','corazón','empatia','empatía','leitura','lectura','percepção','percepcion','adversário','adversario','ler o outro','sentir','intuição','intuicion'],
+r:`O Shén Shí (神识) — O Coração do Outro — é o quinto Poder Interno. É a capacidade de se colocar no espaço emocional do adversário, sentindo directamente as suas motivações e medos.
+
+Não é telepatia — é atenção treinada ao nível mais profundo. O praticante com Shén Shí desenvolvido antecipa não só os movimentos físicos mas a estratégia psicológica completa do adversário. Como o Instrutor ensina: "O guerreiro verdadeiro conquista primeiro o seu mundo interior, e desde essa fortaleza de paz enfrenta o mundo exterior com uma serenidade que confunde e paralisa o adversário."
+
+O Shén Shí tem também aplicação terapêutica no Dao Zhiliao: a empatia profunda como instrumento de diagnóstico. O terapeuta que domina o Shén Shí sente onde está o bloqueio energético antes de o paciente o nomear.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 8 — ZHAN: O CORTE (filosófico + avançado)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['zhan','zhǎn','corte','cut','decapitar','exterminar','eliminar','libertar','medo','miedo','fear','limitação','limitacion','correntes','cadenas'],
+r:`O Zhǎn (斩) — O Corte — é o sétimo Poder Interno e um dos mais transformadores. Significa Cortar, Decapitar, Exterminar — mas o verdadeiro campo de batalha é interior.
+
+Como escreve o Instrutor: o maior inimigo do guerreiro não está à sua frente. Está dentro: os medos, as limitações mentais, as correntes kármicas que impedem a acção limpa e plena. O Zhǎn corta esses vínculos antes que o combate físico sequer comece.
+
+Na prática marcial: o praticante que ainda hesita no momento do golpe não dominou o Zhǎn. A hesitação nasce do medo, e o medo é uma corrente interior. O Zhǎn não elimina o adversário — elimina o que te impede de ser um guerreiro pleno. Depois disso, o adversário torna-se secundário.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 9 — LONG DI QUAN (praticantes + especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long di quan','soco terra','golpe terrestre','soco horizontal','direto','directo','jab','cross','soco','punch','golpe','puñetazo'],
+r:`O Long Dǐ Quán (龙地拳) — O Soco do Dragão na Terra — é a primeira e mais fundamental das 6 Técnicas do Dragão.
+
+Biomecânica (conforme o Vol. II): golpe horizontal devastador executado desde a posição de guarda com rotação de anca completa. O punho viaja em trajectória paralela ao solo — simbolizando a estabilidade terrena — gerando força através da cadeia cinética pés-joelhos-anca-coluna-ombro-cotovelo-punho. A mão traseira permanece retraída na anca simulando um agarre prévio que amplifica a potência por contratensão.
+
+Aplicações múltiplas: à cara, plexo solar, esterno, boca do estômago, genitais, pescoço, costelas (se perpendicular) e nuca (pela retaguarda). "A seguir a este soco pode vir uma joelhada com a perna da frente." Cada técnica tem mais que uma posição; cada posição tem mais que uma aplicação.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 10 — LONG SHAN ZHAO: GARRAS DO DRAGÃO (especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long shan zhao','garra','claw','faca mão','cutelo','knife hand','karate chop','controlo','agarre','pescoço','garganta','cuello','throat','faca','fila'],
+r:`O Long Shǎn Zhǎo (龙闪爪) — O Dragão Estende a Garra — é a segunda técnica, com múltiplas aplicações de alta precisão.
+
+Do Vol. II: "Serve como um ataque ao pescoço com a faca da mão, ou o cutelo da mão; serve também como um espetar na garganta com a própria garra ou nos olhos. Fazendo uma distracção para prosseguir com uma sequência de ataques. Serve para manter a distância do adversário, e para agarrar — aqui é onde entra a mão de trás: soco após o agarre."
+
+Advertência do Instrutor: "Cuidado para não te partirem os dedos. Fortalece-os. Fortalece a tua mão para que se te baterem nela se magoem e não te magoes tu." A mão aberta exige domínio técnico e emocional. Na ira perde-se o controlo — por isso o treino deve ser até que o corpo recorde pelo Shen Fa mesmo quando a mente falha.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 11 — LONG TIAN QUAN: GOLPE CELESTIAL (especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long tian quan','uppercut','soco celestial','ascendente','gancho','hook','vertical','soco cima','punch up'],
+r:`O Long Tiān Quán (龙天拳) — O Soco do Dragão Celestial — é o terceiro golpe do arsenal, de trayectória vertical que "chega ao céu".
+
+Biomecânica: pode ser executado como gancho ou soco directo, pode simbolizar um agarre à roupa com a mão de trás a atacar. "Este soco é potentíssimo se feito com Fajin, onde o mesmo começa desde os pés e percorre o corpo até ao punho. O Fajin pode de igual modo nascer no ventre ou no Xia Dantian."
+
+O Instrutor explica os três Dan Tian em contexto desta técnica: o Xia Dantian (baixo ventre) para o Fajin físico puro, o Zhong Dantian (peito) para a versão mais expressiva, e o Shang Dantian (terceiro olho) para a mais subtil. Aplicações: ventre, esterno, mandíbula, genitais (de baixo para cima), cimo da cabeça (descendente).`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 12 — LONG WEI BIAN: CHICOTE (especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long wei bian','chicote','whip','cauda dragão','backfist','roundhouse','circular','chute','pontapé circular','velocidade'],
+r:`O Long Wěi Biān (龙尾鞭) — A Cauda do Dragão em Chicote — possui o nome derivado da forma: como a cauda de um dragão que chicoteia para baixo após a sua subida.
+
+Do Vol. II: "Para cima defende, e quando vai para baixo ataca. Mas também pode ser uma defesa anteriormente ao ataque com o antebraço no pescoço ou com o pulso no queixo." É simultaneamente defesa e ataque — a posição de defesa dissolve-se numa contra-ofensiva sem interrupção perceptível.
+
+Exemplo táctico: "Supondo que a mão direita agarra o braço esquerdo e de seguida o adversário tenta socar com o braço direito — é aí que entra esta defesa do chicote da cauda do dragão." A velocidade do chicote nasce da relaxação total durante a trajectória e da tensão explosiva apenas no ponto de impacto. Sem relaxação, não há chicote — há empurrão.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 13 — LONG SUAI JIAO: PROJECÇÃO (Na + Shuai, especialistas)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long suai jiao','projeção','proyeccion','throw','takedown','derruba','judo','wrestling','luta no chão','grappling','agarrar','agarre','llave','key lock'],
+r:`O Long Suāi Jiǎo (龙摔角) — Quebra a Mandíbula — cobre a taxonomia Na (llaves) e Shuai (projecções) do sistema Ti-Da-Na-Shuai completo.
+
+O arsenal de projecções inclui: barridos de pernas, projecções de anca, derrube de estrutura via ataque aos pilares (joelhos e tornozelos), e projecções de agarre combinado mão-perna. O Vol. II descreve uma sequência específica do Long Yu Shang: "projecção de agarre com uma das mãos por debaixo dos genitais e a outra a puxa o adversário para cima, e quando a técnica estiver no auge, então despenhar o inimigo para o chão. De preferência de cabeça."
+
+Princípio táctico: a desestruturação precede a projecção. Nunca se projecta alguém que ainda está de pé e equilibrado — primeiro destroem-se os seus pilares (atenção à base, ao equilíbrio, à intenção).`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 14 — LONG ZHAN YI: ABRE AS ASAS (técnica suprema)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['long zhan yi','abre asas','wings','técnica suprema','expansão','explosion','multiple','sequência','combination','combo'],
+r:`O Long Zhàn Yì (龙战意) — Abre as Asas — é a sexta e suprema técnica do arsenal, caracterizada pela expansão explosiva simultânea em múltiplos vectores.
+
+Enquanto as outras técnicas são lineares ou circulares, o Long Zhàn Yì é radial: o guerreiro expande-se em todas as direcções ao mesmo tempo, impossibilitando a leitura da trajectória pelo adversário. É a técnica da "Cegueira Táctica" aplicada ao máximo — o adversário não consegue defender porque não há um único vector de ataque a seguir.
+
+Princípio filosófico: como escreve o Instrutor, "cada técnica tem mais que uma posição; cada posição tem mais que uma aplicação." O Long Zhàn Yì é a materialização física desta doutrina — todas as posições, todas as aplicações, em simultâneo.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 15 — TÁCTICA DE COMBATE E PSICOLOGIA (avançados)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['táctica','tactica','strategy','estrategia','psicologia','psicología','psychology','combate','fight','rua','calle','street','real','real combat','guang','luz','light','cegueira','blind'],
+r:`O Yangyiquan define três grandes tácticas de guerra, documentadas pelo Instrutor no Dossier Oficial:
+
+1. Guang (光) — A Luz: opera em três planos simultâneos. Físico: usar a luz (sol, foco artificial) contra os olhos do adversário. Psicológico: a confiança emanada de um guerreiro formado é, por si só, uma ferramenta que paralisa — "o guerreiro que actua desde a luz gera um campo de força invisível que magnifica a sua efectividade." Metafísico: a rectidão de intenções como amplificador de poder.
+
+2. Destruir a Base: "O guerreiro aponta sempre à raiz do adversário." Ataque à base estrutural (joelhos, tornozelos), à base psicológica (medo, incerteza) e à base táctica (interromper a intenção antes de se materializar).
+
+3. Vitória Antes do Primeiro Golpe: via Shén Shí, o guerreiro já conhece o desfecho antes de o combate começar. Sun Tzu disse-o; o Instrutor viveu-o.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 16 — TI-DA-NA-SHUAI (especialistas em Kung Fu)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['ti da na shuai','ti,da,na','taxonomia','taxonomy','sistema completo','wushu completo','quatro','cuatro','four pillars','patada','pontapé','kick','sweep','barrido'],
+r:`O Yangyiquan domina a cuádrupla taxonomia marcial chinesa Ti-Da-Na-Shuai — a cobertura completa de todas as possibilidades do combate sem armas:
+
+踢 Ti — Técnicas de Perna: patadas a joelhos (derrube de estrutura), laterais ao pescoço, circulares ao tórax, barridos. O sistema privilegia alvos baixos e médios para garantir eficácia em combate real.
+
+打 Da — Golpes de Punho e Palma: directos, cruzados, em gancho, ascendentes (Long Tian Quan), horizontais (Long Di Quan), com o dorso da mão, com o fio da mão (Long Shan Zhao) e com a base da palma.
+
+拿 Na — Llaves e Agarres: controlos articulares, pressões sobre pontos vitais, agarres ao pescoço, manipulações de dedos e pulsos, controlos que posicionam o adversário para golpes de seguimento devastadores.
+
+摔 Shuai — Projecções e Derrubes: barridos de pernas, projecções de anca, derrube de estrutura e projecções de agarre combinado mão-perna.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 17 — DAO ZHILIAO GERAL (curiosos + iniciantes)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['dao zhiliao','medicina','cure','curar','cura','heal','healing','terapia','therapy','holístico','holistico','holistic','marcial medicina','traditional','medicina tradicional'],
+r:`O Dao Zhiliao (道治疗) — "A Cura pelo Caminho" — é o sistema médico-terapêutico completo do Yangyiquan. O Instrutor postula um princípio irrenunciável: um sistema marcial verdadeiro não só destrói — também cura.
+
+Três pilares do Dao Zhiliao:
+
+1. Dit Da Jow (跌打酒): 5 formulações herbo-medicinais de maceração desenvolvidas pelo Instrutor, integrando a farmacologia herbal chinesa e portuguesa. Propriedade intelectual exclusiva do sistema.
+
+2. Terapia Yin-Yang: medicina energética que restaura o equilíbrio entre as forças opostas. Trabalha directamente sobre meridianos e fluxo de Qi, dissolvendo bloqueios que são a origem da doença.
+
+3. Yi Terapêutico: a palavra e a intenção dirigida como instrumentos de cura. "A medicina mais poderosa não vem de uma planta — vem da intenção do sanador."
+
+A academia em Granada oferece sessões de Dao Zhiliao. <a href="https://wa.me/34674471678?text=Quero+informação+sobre+o+Dao+Zhiliao." target="_blank" style="color:#FFD700">Contacta aqui</a>.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 18 — DIT DA JOW: FÓRMULAS (praticantes + curiosos)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['dit da jow','dit-da','jow','linimento','tintura','formulação','formula','receita','poção','maceração','plantas','ervas','herbal','bone strength','tendon flex','joint relief','skin regenerator','muscle soft tissue'],
+r:`O Dit Da Jow (跌打酒 — "Vinho para Golpes e Quedas") é a preparação tópica mais antiga da medicina marcial chinesa. O Instrutor Pedro P. da Fonseca desenvolveu um sistema completo de 5 formulações adaptadas ao contexto ibérico, cobrindo os cinco tecidos fundamentais do aparelho locomotor:
+
+🦴 Bone Strength — Fortalecimento e Regeneração Óssea: eficácia 98-100%
+🔗 Tendon Flex — Flexibilidade e Regeneração de Tendões: 97-99%
+🔵 Joint Relief — Desinflamação Articular: 96-99%
+🌿 Skin Regenerator — Cicatrização e Regeneração Cutânea: 97-99%
+💪 Muscle & Soft Tissue — Tecidos Moles e Musculatura: 97-99%
+
+A eficácia potencia exponencialmente com o tempo de maceração: 6 meses → 79-81%; 4 anos → 83-88%; 20 anos → 96-98%; 20 anos com ingredientes de supremacia → 99-100%.
+
+As fórmulas são propriedade intelectual exclusiva do Instrutor. Para alunos activos, há acesso privilegiado. Há surpresas a caminho para todos.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 19 — INGREDIENTES (segredo absoluto)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['ingrediente','ingredient','planta','plant','erva','herb','receita','recipe','como fazer','how to make','preparar','prepare','proporção','proportion','quantidade','quantity','cavalinha','arnica','gengibre','centelha','san qi','mastruz','calêndula','camomila'],
+r:`As formulações Dit Da Jow do Yangyiquan são propriedade intelectual exclusiva do Instrutor Pedro P. da Fonseca — confidenciais ao mais alto grau. Não são partilhadas publicamente.
+
+O que posso dizer sobre o processo geral: trata-se de maceração alcohólica prolongada em frascos escuros, vedados, com agitação diária. O tempo é tudo — a eficácia cresce exponencialmente durante décadas. Algumas formulações atingem o máximo de eficácia apenas após 20 anos de maceração.
+
+Se és aluno activo do Yangyiquan, receberás acesso privilegiado a estas formulações como parte do teu percurso no Dao Zhiliao. Para todos, há uma surpresa a caminho. <a href="https://wa.me/34674471678?text=Quero+saber+mais+sobre+o+Dao+Zhiliao." target="_blank" style="color:#FFD700">Contacta o Instrutor</a>.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 20 — OSSOS, TENDÕES, ARTICULAÇÕES (usuários com lesões)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['osso','bone','tendão','tendon','articulação','joint','articulacion','dor','pain','lesão','lesion','injury','recuperação','recuperacion','recovery','inflamação','inflamacion','inflammation','fractura','fracture','luxação'],
+r:`O Dao Zhiliao tem resposta específica para cada tecido lesionado:
+
+Para ossos (fracturas, dores ósseas, densidade): Dit Da Jow Bone Strength — a formulação mais potente do sistema, com eficácia até 100% nas macerações de maior duração. Alívio perceptível em 5-15 minutos após a primeira aplicação.
+
+Para tendões (rupturas, tendinites, retracção): Dit Da Jow Tendon Flex — anti-inflamatório profundo e regenerador tendinoso. 97-99% de eficácia. Melhora a flexibilidade e acelera a regeneração tecidual.
+
+Para articulações (artrite, inflamação, mobilidade reduzida): Dit Da Jow Joint Relief — reduz a inflamação articular, alivia a dor e melhora a circulação nos tecidos articulares. 96-99% de eficácia.
+
+Em paralelo, a Terapia Yin-Yang trabalha os meridianos associados à área lesionada — porque toda a lesão física tem primeiro uma dimensão energética. <a href="https://wa.me/34674471678?text=Preciso+de+informação+sobre+tratamento+com+Dit+Da+Jow." target="_blank" style="color:#FFD700">Marcar consulta →</a>`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 21 — PELE E MÚSCULO (atletas + lesionados)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['pele','skin','músculo','muscle','tecido','tissue','cicatriz','cicatrice','scar','ferida','wound','queimadura','burn','hematoma','contusão','contusion','bruise','dor muscular','muscle pain','recuperação muscular'],
+r:`Para recuperação muscular e tecidos moles (após treino intenso, contusões, espasmos): Dit Da Jow Muscle & Soft Tissue — "ideal para dores musculares, espasmos e tensões, apresenta alívio quase instantâneo em macerações longas, com sensação local de aquecimento e relaxamento muscular." Eficácia 97-99%.
+
+Para pele (feridas, irritações, cicatrizes, regeneração): Dit Da Jow Skin Regenerator — "após poucos minutos de aplicação, a pele sente os efeitos calmantes e anti-inflamatórios. Nas macerações longas, a regeneração da pele ocorre em tempo recorde." Eficácia 97-99%.
+
+Nota importante: estas formulações são preparações tópicas — aplicadas externamente sobre a área afectada. A frequência de aplicação e o protocolo específico são transmitidos em contexto de prática. <a href="https://wa.me/34674471678?text=Tenho+interesse+no+tratamento+com+Dit+Da+Jow." target="_blank" style="color:#FFD700">Fala com o Instrutor</a>.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 22 — 3 VIRTUDES (filosófico + todo o público)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['virtude','virtue','virtud','paciência','paciencia','patience','bondade','bondad','kindness','perdão','perdon','forgiveness','ética','ética marcial','caracter','character','código','code'],
+r:`As 3 Virtudes do Guerreiro no Yangyiquan não são adornos — são a estrutura psicológica do guerreiro eficaz:
+
+忍 Rěn — Paciência: "Devagar se constrói uma cidade." O guerreiro apressado trai a sua posição antes de atacar. A paciência é a gestão do tempo no combate — saber quando não agir é tão determinante como saber quando agir.
+
+善 Shàn — Bondade: a força sem bondade é destruição sem propósito. O guerreiro que actua desde a bondade tem clareza de intenção — e a clareza de intenção amplifica o poder. É o que o Instrutor chama a dimensão metafísica do Guang (光): a rectidão moral como arma.
+
+宽 Kuān — Perdão: não perdoar é segurar uma bola de fogo. Quem mais sofre é quem a segura. O perdão não é fraqueza — é a dissolução de um bloqueio de Qi que diminuiria a eficácia do guerreiro. Perdoar é libertar energia própria.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 23 — FILOSOFIA MARCIAL (público culto, comparações)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['filosofia','filosofía','philosophy','sun tzu','art of war','arte guerra','lao tzu','tao te ching','taoismo','marcus aurelius','estoicismo','bruce lee','wing chun','taiji','taijiquan','tai chi','chen','yang style','nanquan'],
+r:`O Yangyiquan dialoga com os grandes sistemas filosóficos marciais sem se subordinar a nenhum.
+
+Com Sun Tzu: "A maior guerra que venceste é aquela que não começaste." O Instrutor eleva este princípio de estratégia militar a lei espiritual universal. O Shén Shí é a forma prática disto — conhecer o adversário por dentro, antes do primeiro movimento.
+
+Com o Taoismo: o princípio de relaxação-explosão é Tao aplicado ao combate. O músculo completamente relaxado durante a trajectória, a tensão explosiva apenas no ponto de impacto. Wu Wei não é inacção — é acção perfeita sem desperdício.
+
+Com a formação do Instrutor: estudou Yang Taijiquan e Chen Taijiquan sob Shifu Diogo Sant'Ana, Nanquan e Karate Shukokai sob Sensei Carmindo Paiva. O Yangyiquan não é a continuação destes sistemas — é a síntese criativa que os transcende, articulada numa perspectiva cultural portuguesa única.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 24 — COMPARAÇÃO COM OUTROS ESTILOS (praticantes de outras artes)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['diferença','diferencia','difference','versus','vs','melhor que','better than','mma','boxe','boxing','karate','judo','bjj','jiu jitsu','muay thai','kickboxing','krav maga'],
+r:`O Yangyiquan não compete com outros sistemas — manifesta-se onde eles param.
+
+O que o distingue structuralmente de MMA, Boxe, Karate ou BJJ: estes sistemas desenvolvem atletas excepcionais. O Yangyiquan desenvolve guerreiros completos. A diferença: o atleta treina o corpo para o combate; o guerreiro treina a mente, o Qi e o corpo como um sistema único e indivisível.
+
+O Nei Gong é inexistente em MMA e minimal em Karate contemporâneo. O Dao Zhiliao (medicina marcial integrada) é ausente em todos. O Yi como princípio táctico primário — a vitória antes do primeiro golpe via Shén Shí — não tem equivalente formalizado em nenhum sistema ocidental.
+
+Para quem já treina outra arte marcial: o Yangyiquan não substitui — amplifica. Os 9 Poderes do Nei Gong tornam qualquer técnica mais eficaz, independentemente do sistema de origem.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 25 — DEFESA PESSOAL REAL (público geral, sem experiência)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['defesa pessoal','defensa personal','self defense','self-defense','proteger','protect','rua','calle','street','violência','violencia','violence','assalto','ataque','attack','situação real','real situation','sobreviver','survive'],
+r:`O Yangyiquan foi desenvolvido para funcionar em combate real — não para competição com regras ou demonstrações estéticas.
+
+Para quem começa sem experiência: os primeiros conceitos ensinados são os mais imediatamente úteis na rua. A gestão do medo via respiração (Qi — "inspiras perante o medo, ele já não te domina"). A leitura de intenção do adversário antes de este atacar (Shén Shí). A posição de guarda que protege e que já é o início do contra-ataque.
+
+O sistema Ti-Da-Na-Shuai cobre todas as distâncias de combate: longa (patadas), média (socos), curta (llaves e controlos), no chão (projecções e derrubes). A primeira aula de prova é gratuita em Granada — sem experiência necessária.
+
+<a href="https://wa.me/34674471678?text=Quero+aprender+defesa+pessoal+no+Yangyiquan." target="_blank" style="color:#FFD700">Reservar aula gratuita →</a>`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 26 — AULAS, HORÁRIOS, PREÇOS (todo o público)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['aula','clase','class','treino','training','horário','horario','schedule','preço','precio','price','custo','cost','quanto custa','how much','inscrição','inscripcion','matrícula','matricula','granada','academia','kwoon','quando','when','julho','july'],
+r:`A academia do Yangyiquan Fa em Granada abre em Julho de 2025.
+
+Estrutura de preços:
+🥋 Primeira aula de prova: GRATUITA — sem compromisso, sem experiência necessária
+👥 Mensalidade regular (grupos): 50€/mês
+🎯 Aula privada: 100€/hora
+⚡ Plano Intensivo Elite: 200€/mês (3+ sessões privadas/semana)
+📚 Manuscrito gratuito de 50 páginas: via WhatsApp, sem custo
+
+Para reservar ou pedir informação sobre horários e disponibilidade:
+<a href="https://wa.me/34674471678?text=Quero+reservar+uma+aula+de+prova+gratuita+em+Granada." target="_blank" style="color:#FFD700">WhatsApp: +34 674 471 678</a>
+Email: contact@yangyiquan.international`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 27 — LIVROS / VOLUMES (todo o público)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['livro','libro','book','volume','vol','manual','ebook','pdf','publicação','publicacion','comprar','buy','where to buy','onde comprar','sovereign word','guerreiro interior','guerra ninguém ensina','caminho dominar cura'],
+r:`O conhecimento do Yangyiquan está documentado em três volumes escritos pelo Instrutor Pedro P. da Fonseca:
+
+📖 Vol. I — O Guerreiro Interior Revelado: filosofia do sistema, os 3 Pilares (Yi, Qi, Dan Tian), os 9 Poderes do Nei Gong, as 3 Virtudes. A base espiritual e intelectual do guerreiro.
+
+⚔ Vol. II — A Guerra que Ninguém Ensina: as 6 Técnicas do Dragão com análise biomecânica completa, o sistema Ti-Da-Na-Shuai, tácticas de combate, psicologia marcial. O arsenal em profundidade.
+
+🌿 Vol. III — O Caminho para Dominar a Cura: Dao Zhiliao completo, as 5 formulações Dit Da Jow, Terapia Yin-Yang, Yi Terapêutico. A medicina do guerreiro.
+
+📗 The Sovereign Word (EN): obra filosófica de Pedro F. Barros, 61 páginas, sapiência universal aplicada ao mundo de 2026. 9,99€ individual.
+
+💰 Pack 3 volumes (PT): 32€ | Pack completo (4 ebooks): 27€ — The Sovereign Word INCLUÍDO GRÁTIS
+<a href="https://wa.me/34674471678?text=Quero+adquirir+os+livros+do+Yangyiquan." target="_blank" style="color:#FFD700">Adquirir →</a>`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 28 — ASSOCIAÇÃO E CERTIFICAÇÃO (institucionais)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['associação','asociación','association','certificado','certificate','certificação','certification','reconhecimento','recognition','federação','federation','wushu','imas','international','filiação'],
+r:`A Yangyiquan Kung Fu — International Self Defense Association é a organização marcial fundada pelo Instrutor Pedro P. da Fonseca, com capacidade para certificar praticantes, instrutores e continuadores do sistema a nível internacional.
+
+O Yangyiquan é reconhecido como o primeiro sistema marcial chino desenvolvido desde a perspectiva cultural portuguesa — integrando a herança marcial da China com o espírito de Portugal e o enfoque espiritual islâmico do fundador. Esta síntese cultural tem valor histórico e cultural inestimável.
+
+Para informações sobre filiação, certificação ou representação internacional:
+Email: contact@yangyiquan.international
+<a href="https://wa.me/34674471678?text=Quero+informação+sobre+a+Associação+Yangyiquan." target="_blank" style="color:#FFD700">WhatsApp →</a>`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 29 — INSTRUTOR / FUNDADOR (curiosos + imprensa)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['instrutor','instructor','fundador','founder','pedro barros','sultan','shénmì lóng','dragão místico','mystic dragon','quem é','quien es','who is','formação','formacion','background','currículo','curriculum'],
+r:`O Instrutor Pedro P. da Fonseca — reconhecido a nível institucional pelo nome islâmico Sultan Assad Abd-Al-Ghalib e pelo título marcial chinês Shénmì Lóng (神秘龙), O Dragão Místico — é o fundador do Yangyiquan Fa.
+
+Formação marcial verificável:
+◆ Yang Taijiquan, Chen Taijiquan e Nanquan — Shifu Diogo Sant'Ana
+◆ Karate Shukokai — Sensei Carmindo Paiva
+◆ Shiatsu, Massagem Desportiva, Cura Pránica (Nível 1)
+◆ Investigação empírica em medicina marcial chinesa e portuguesa durante décadas
+
+O Yangyiquan não é a continuação dos sistemas onde estudou — é a síntese criativa que os transcende. Como escreve no Dossier Oficial: "O Yangyiquan postula que a supremacia no combate não reside na massa muscular nem na velocidade bruta, mas na clareza e pureza da intenção mental que precede, acompanha e transcende cada acção física."
+
+Não é chamado Mestre ou Sifu — é o Instrutor.`},
+
+// ─────────────────────────────────────────────────────────────────────────
+// BLOCO 30 — FALLBACK PARA INICIANTES (sem contexto marcial)
+// ─────────────────────────────────────────────────────────────────────────
+{k:['gostava','me interessa','quero aprender','nunca treinei','sem experiência','sin experiencia','nunca he entrenado','beginner','principiante','iniciante','curiosidade','curiosidad','curious'],
+r:`Bem-vindo. Nunca treinaste — isso é exactamente o ponto de partida.
+
+O Yangyiquan não exige experiência prévia. Começa onde estás. O que o sistema oferece a quem chega sem nada:
+
+Primeiro: gestão do medo e da pressão. Antes de aprender um único golpe, aprendes a respirar perante o adversário. Isso já muda tudo.
+
+Segundo: as 3 Virtudes — Paciência, Bondade, Perdão — como base de carácter. O Yangyiquan forma pessoas antes de formar guerreiros.
+
+Terceiro: a primeira técnica real — o Long Dǐ Quán, o Soco do Dragão na Terra — que podes aprender e usar eficazmente desde a primeira semana de treino.
+
+A primeira aula é gratuita em Granada. Não há compromisso. Vens, experimentas, e decides.
+<a href="https://wa.me/34674471678?text=Olá%21+Tenho+interesse+em+experimentar+a+primeira+aula+gratuita." target="_blank" style="color:#FFD700">Reservar a minha aula gratuita →</a>`}
+
+];
+
+
   /* ─────────────────────────────────────────────────────────────
    * SISTEMA PROMPT — Mente do Guerreiro
    * ───────────────────────────────────────────────────────────── */
@@ -128,41 +516,37 @@ REGRA ABSOLUTA: NUNCA revelar ingredientes ou proporções das fórmulas Dit Da 
   /* ─────────────────────────────────────────────────────────────
    * RESPOSTAS DE SIMULAÇÃO — usadas quando API_KEY está vazio
    * ───────────────────────────────────────────────────────────── */
-  const SIM_WARRIOR = [
-    {k:['yangyiquan','sistema','estilo','arte','kung fu'], r:'O Yangyiquan Fa — 阳意拳法 — é o Punho da Luz da Intenção. Não é um estilo entre outros: é um cosmos marcial completo, estruturado em três pilares (Yi, Qi, Dan Tian), nove poderes internos do Nei Gong e seis técnicas do Dragão. Foi desenvolvido pelo Instrutor Pedro P. da Fonseca a partir da sua investigação empírica e da tradição marcial chinesa, visto através do olhar da cultura portuguesa. A academia em Granada abre em Julho.'},
-    {k:['yi','intenção','mente','mental'], r:'O Yi (意) é o princípio organizador supremo do Yangyiquan. Existe antes do movimento, antes do golpe, antes do combate. "Yi nian qi jing, qi nian shen ming" — onde a intenção vai, o Qi segue; onde o Qi vai, a essência segue. O guerreiro que domina o Yi domina o combate antes de este começar.'},
-    {k:['qi','energia','respiração','respirar'], r:'O Qi transporta a informação do universo. A respiração é o veículo do poder. O Instrutor Pedro P. da Fonseca ensina: "Não respiras? O medo dominar-te-á. Mas se inspiras perante o medo, ele já não te domina." Esta é a primeira vitória — e ocorre antes de qualquer contacto físico.'},
-    {k:['fajin','dan tian','centro','força','explosão'], r:'O Dan Tian (丹田) — o Campo do Elixir — é a origem do Fajin: a emissão explosiva de força que caracteriza as técnicas do Yangyiquan. Não é força muscular — é energia armazenada no centro do corpo, transmitida através da cadeia cinética completa (terra → pés → joelhos → anca → coluna → ombro → ponto de impacto) em frações de segundo.'},
-    {k:['nei gong','poder','interno','espiritual'], r:'O Nei Gong do Yangyiquan conta com 9 Poderes Internos: 4 Poderes Extremos (Yǐ Jīng, Tiān, Dì Cí, Dì Yù) e 5 Poderes Intermédios (Shén Shí, Chuāng Zào, Zhǎn, Bǎo, Zhì). Não são técnicas — são estados de ser que o guerreiro cultiva. Cada poder amplifica os restantes, criando um sistema de retroalimentação que eleva a eficácia marcial a um nível que a mera força física nunca alcança.'},
-    {k:['técnica','dragão','long','golpe','luta','combate','defesa'], r:'As 6 Técnicas do Dragão cobrem o sistema Ti-Da-Na-Shuai completo: Long Dǐ Quán (Golpe Terrestre), Long Shǎn Zhǎo (Garras), Long Tiān Quán (Golpe Celestial), Long Wěi Biān (Chicote), Long Suāi Jiǎo (Projeção), Long Zhàn Yì (Abre as Asas). O princípio unificador: relaxação-explosão, cadeia cinética ascendente, movimento contínuo. Cada técnica nasce da anterior e gera a seguinte.'},
-    {k:['dao','zhiliao','cura','medicina','terapia'], r:'O Dao Zhiliao (道治疗) — "A Cura pelo Caminho" — é o sistema médico-terapêutico completo do Yangyiquan. Três pilares: o Dit Da Jow (5 fórmulas herbo-medicinais de maceração), a Terapia Yin-Yang energética, e o Yi Terapêutico — a palavra e a intenção dirigida como instrumentos de cura. O Instrutor Pedro P. da Fonseca integrou décadas de investigação empírica em medicina marcial chinesa e portuguesa.'},
-    {k:['dit da jow','fórmula','curar','osso','tendão','articulação','pele','músculo','lesão','dor'], r:'O Dit Da Jow do Yangyiquan conta com 5 fórmulas específicas, desenvolvidas pelo Instrutor Pedro P. da Fonseca: Bone Strength (regeneração óssea, até 100% de eficácia), Tendon Flex (regeneração tendinosa, 97-99%), Joint Relief (anti-inflamatório articular, 96-99%), Skin Regenerator (regeneração dérmica, 97-99%), e Muscle & Soft Tissue (recuperação muscular, 97-99%). As fórmulas são propriedade intelectual exclusiva do sistema — a composição é confidencial. Para alunos ativos do Yangyiquan, há acesso privilegiado. Para todos, há surpresas a caminho.'},
-    {k:['ingrediente','receita','planta','erva','composto'], r:'Os ingredientes e proporções das fórmulas Dit Da Jow são propriedade intelectual exclusiva do Instrutor Pedro P. da Fonseca — confidenciais ao mais alto grau. O que posso dizer: o processo envolve maceração prolongada de plantas medicinais em álcool de alta graduação. O tempo é tudo: 6 semanas, 6 meses, 4 anos, 20 anos — cada fase amplia a eficácia. Se és aluno do sistema, receberás acesso privilegiado. Há surpresas a caminho para todos.'},
-    {k:['livro','volume','manual','sovereign'], r:'O conhecimento do Yangyiquan está condensado em 3 Volumes: Vol. I — O Guerreiro Interior Revelado (filosofia, Yi, 9 Poderes), Vol. II — A Guerra que Ninguém Ensina (técnicas, biomecânica, táticas), Vol. III — O Caminho para Dominar a Cura (Dao Zhiliao completo). Pack 3 volumes: 32€. Pack completo com The Sovereign Word: 27€. Contacta via <a href="https://wa.me/34674471678?text=Hola%21+Quiero+informaci%C3%B3n+sobre+el+Yangyiquan+Fa." target="_blank" style="color:#FFD700">WhatsApp: +34 674 471 678</a>.'},
-    {k:['aula','classe','treino','preço','custo','granada','academia'], r:'A nova academia do Yangyiquan Fa em Granada abre em Julho. Primeira aula de prova: gratuita, sem compromisso. Mensalidade regular: 50€/mês (aulas de grupo). Aula privada: 100€/hora. Plano Intensivo Elite: 200€/mês (3+ sessões privadas/semana). Reserva: WhatsApp +34 674 471 678 ou contact@yangyiquan.international.'},
-    {k:['virtude','paciência','bondade','perdão','ética'], r:'As 3 Virtudes do Guerreiro no Yangyiquan: 忍 Rěn — Paciência ("Devagar se constrói uma cidade. O guerreiro apressado já perdeu."), 善 Shàn — Bondade (a força sem bondade é destruição sem propósito), 宽 Kuān — Perdão (não perdoar é segurar uma bola de fogo — quem mais sofre é quem a segura). Estas virtudes não são adornos — são a estrutura psicológica do guerreiro eficaz.'},
-    {k:['associação','imas','internacional'], r:'A Yangyiquan Kung Fu — International Self Defense Association é a organização marcial fundada pelo Instrutor Pedro P. da Fonseca. Tem capacidade para certificar praticantes, instrutores e continuadores do sistema a nível internacional. Para informações: contact@yangyiquan.international.'},
-  ];
+  
 
-  const SIM_WISDOM = [
-    {k:['tao','taoísmo','lao tzu','filosofia'], r:'O Tao Te Ching de Lao Tzu e o Yangyiquan partilham uma visão: o poder real não força, flui. "O suave vence o duro; o gentil vence o rígido." No Yangyiquan, isto manifesta-se no princípio de relaxação-explosão: o músculo completamente relaxado durante a trajetória, a contração explosiva apenas no milissegundo do impacto. O Tao não é passividade — é precision without effort.'},
-    {k:['marcus aurelius','estoicismo','estoico'], r:'Marcus Aurelius e o Instrutor Pedro P. da Fonseca chegaram, por caminhos diferentes, à mesma verdade: o único reino que importa governar é o interior. "Tens poder sobre a tua mente, não sobre os acontecimentos externos. Percebe isso e encontrarás força." No Yangyiquan, chamamos a isso Yǐ Jīng — O Já Está — o domínio da realidade tal como ela é.'},
-    {k:['sun tzu','arte da guerra','estratégia'], r:'Sun Tzu é um dos pilares implícitos do Yangyiquan. "O guerreiro vitorioso vence primeiro e depois vai à guerra; o guerreiro derrotado vai à guerra e depois procura vencer." Isto é exatamente o conceito de Vitória Antes do Primeiro Golpe — via Shén Shí, o guerreiro já conhece o desfecho antes de o combate começar.'},
-    {k:['medicina','saúde','cura','tradição','chinesa'], r:'A medicina tradicional chinesa e o Yangyiquan são inseparáveis. O Instrutor Pedro P. da Fonseca desenvolveu o Dao Zhiliao — "A Cura pelo Caminho" — integrando Qi Gong terapêutico, fitoterapia marcial (Dit Da Jow) e o Yi Terapêutico, onde a intenção dirigida age diretamente sobre o campo energético do praticante. A academia em Granada oferece sessões de Dao Zhiliao. Contacta: contact@yangyiquan.international.'},
-    {k:['meditação','mindfulness','consciência'], r:'O que o mundo chama "mindfulness", o Yangyiquan chama Yǐ Jīng — domínio total do presente. Mas há uma diferença: onde o mindfulness observa, o Yangyiquan age. O guerreiro não está presente para contemplar — está presente para perceber o ataque antes de este existir, para sentir o adversário antes de este se mover. A presença, no Kwoon, é uma arma.'},
-  ];
+  
 
   function simAnswer(q, via) {
-    const lower = q.toLowerCase();
-    const pool = via === 'warrior' ? SIM_WARRIOR : SIM_WISDOM;
-    for (const item of pool) {
-      if (item.k.some(k => lower.includes(k))) return item.r;
-    }
-    if (via === 'warrior') {
-      return 'A doutrina do Yangyiquan é vasta. Formula a tua questão com mais precisão — sobre as técnicas do Dragão, os 9 Poderes do Nei Gong, o Dao Zhiliao, ou as condições de treino em Granada — e responderei com o rigor que o Kwoon exige.';
-    }
-    return 'Essa questão merece reflexão. No Yangyiquan, não há respostas apressadas — há compreensão que amadurece com a prática. Podes reformular de forma mais específica? Poderei então trazer luz com mais precisão.';
+    var lower = q.toLowerCase();
+    // normalize: strip accents, punctuation
+    try {
+      lower = lower.normalize('NFD').replace(/[̀-ͯ]/g,'');
+    } catch(e) {}
+    lower = lower.replace(/[^a-z0-9 ]/g,' ');
+
+    var bestScore = 0, bestReply = null;
+    SIM_DB.forEach(function(item){
+      var score = 0;
+      item.k.forEach(function(kw){
+        try {
+          var kn = kw.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+          if(lower.indexOf(kn) >= 0) score += kn.length > 4 ? 3 : 1;
+        } catch(e) {
+          if(lower.indexOf(kw.toLowerCase()) >= 0) score += 1;
+        }
+      });
+      if(score > bestScore){ bestScore = score; bestReply = item.r; }
+    });
+    if(bestReply && bestScore > 0) return bestReply;
+    return via === 'warrior'
+      ? 'A doutrina do Yangyiquan abrange muito. Pergunta sobre as 6 técnicas do Dragão, os 9 Poderes Nei Gong, o Dao Zhiliao, os livros, as aulas em Granada ou qualquer aspecto do método.'
+      : 'Podes reformular com mais detalhe? Posso falar sobre filosofia marcial, biomecânica, Nei Gong, medicina marcial, ou qualquer tema do Yangyiquan Fa.';
   }
+
 
   /* ─────────────────────────────────────────────────────────────
    * CSS — Dark Mode Marcial
@@ -420,7 +804,7 @@ REGRA ABSOLUTA: NUNCA revelar ingredientes ou proporções das fórmulas Dit Da 
       });
       if (!res.ok) throw new Error('API error ' + res.status);
       const data = await res.json();
-      return data.content?.[0]?.text || 'Sin respuesta de la IA. <a href="https://wa.me/34674471678?text=Hola%21+Quiero+informaci%C3%B3n+sobre+el+Yangyiquan+Fa." target="_blank" style="color:#FFD700">WhatsApp: +34 674 471 678</a>';
+      return data.content?.[0]?.text || 'Sem resposta.';
     }
 
     function addMsg(role, text) {
@@ -429,7 +813,7 @@ REGRA ABSOLUTA: NUNCA revelar ingredientes ou proporções das fórmulas Dit Da 
       const av = document.createElement('div'); av.className = 'yq-av';
       av.textContent = role === 'user' ? '人' : '龍';
       const bub = document.createElement('div'); bub.className = 'yq-bub';
-      bub.innerHTML = role === 'user' ? text.replace(/</g,'&lt;').replace(/>/g,'&gt;') : text;
+      bub.innerHTML = (role === 'user' ? text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : text);
       div.appendChild(av); div.appendChild(bub);
       msgs.appendChild(div);
       msgs.scrollTop = msgs.scrollHeight;
